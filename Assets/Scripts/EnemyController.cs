@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,11 +12,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float detectionRange;
     private Vector3 lookDir;
     //public enum currentState;   Uncomment after the test variable is gone of the same name
-    public UnityEngine.AI.NavMeshAgent agent;
+    public NavMeshAgent agent;
     private float radiusOfSatisfaction;
+    private float targetRotation;
     [Header("Raycast Jungle")]
-    RaycastHit hit;
-    Ray theRay;
+    private NavMeshHit hit;
+    private bool theRay;
     public Vector3 direction;
 
 
@@ -25,20 +27,15 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
+        theRay = false;
     }
     void Searching()
     {
-        Debug.DrawRay(transform.position, transform.TransformDirection(direction * detectionRange));
-        direction = Vector3.forward * Time.deltaTime;
-        theRay = new Ray(transform.position, transform.TransformDirection(direction * detectionRange));
-        if(Physics.Raycast(theRay, out hit, detectionRange))
-        {
-            if(hit.collider.tag == "player")
-            {
-                //RUSH RAAAAAA
-                currentState = currentState.Moving;
-            }
+        theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, UnityEngine.AI.NavMesh.AllAreas);
+        Debug.DrawLine(transform.position, playerTrans.position, theRay ? Color.red : Color.green);
+        if(theRay){
+            Debug.DrawRay(hit.position, Vector3.up, Color.red);
         }
     }
     #region State Machine
@@ -52,8 +49,9 @@ public class EnemyController : MonoBehaviour
         //state 1 is moving to player
         else if (currentState == currentState.Moving)
         {
+            //targetRotation = orientToMovement ? Mathf.Atan2(agent.direction.x, agent.direction.z) * Mathf.Rad2Deg : Mathf.Atan2(lookDir.x,lookDir.z)* Mathf.Rad2Deg;
+            //transform.direction = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
             agent.SetDestination(playerTrans.position);
-            
         }
         //state 2 is attacking
         else if (currentState == currentState.Attack)
