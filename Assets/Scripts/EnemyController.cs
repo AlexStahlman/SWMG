@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float detectionRange;
     private Vector3 lookDir;
-    //public enum currentState;   Uncomment after the test variable is gone of the same name
     public NavMeshAgent agent;
     private float radiusOfSatisfaction;
     private float targetRotation;
@@ -20,9 +19,7 @@ public class EnemyController : MonoBehaviour
     private bool theRay;
     public Vector3 direction;
 
-
-
-    [Header("Test Veriables")]
+    [Header("Hot Steamy Variables")]
     [SerializeField] public currentState currentState;
 
     void Start()
@@ -33,27 +30,25 @@ public class EnemyController : MonoBehaviour
     void Searching()
     {
         theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, UnityEngine.AI.NavMesh.AllAreas);
-        Debug.DrawLine(transform.position, playerTrans.position, theRay ? Color.red : Color.green);
+        Debug.DrawRay(transform.position, playerTrans.position-transform.position, theRay ? Color.red : Color.green);
         if(theRay){
-            Debug.DrawRay(hit.position, Vector3.up, Color.red);
+            currentState = currentState.Moving;
         }
     }
     #region State Machine
     void State()
     {
-        //state 0 is idle
         if (currentState == currentState.Idle)
         {
             Searching();
         }
-        //state 1 is moving to player
         else if (currentState == currentState.Moving)
         {
-            //targetRotation = orientToMovement ? Mathf.Atan2(agent.direction.x, agent.direction.z) * Mathf.Rad2Deg : Mathf.Atan2(lookDir.x,lookDir.z)* Mathf.Rad2Deg;
-            //transform.direction = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
             agent.SetDestination(playerTrans.position);
+            if(!theRay){
+                currentState = currentState.Idle;
+            }
         }
-        //state 2 is attacking
         else if (currentState == currentState.Attack)
         {
             //attack animation and boom pow damage
@@ -67,7 +62,6 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         State();
     }
 }
