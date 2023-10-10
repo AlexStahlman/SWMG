@@ -27,24 +27,22 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         theRay = false;
     }
-    void Searching()
-    {
-        theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, UnityEngine.AI.NavMesh.AllAreas);
-        Debug.DrawRay(transform.position, playerTrans.position-transform.position, theRay ? Color.red : Color.green);
-        if(theRay){
-            currentState = currentState.Moving;
-        }
-    }
     #region State Machine
     void State()
     {
+    theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, UnityEngine.AI.NavMesh.AllAreas);
         if (currentState == currentState.Idle)
         {
-            Searching();
+            //theRay is a boolean raycast that returns true if connected
+            Debug.DrawRay(transform.position, playerTrans.position-transform.position, theRay ? Color.red : Color.green);
+            if(theRay){
+                currentState = currentState.Moving;
+            }
         }
         else if (currentState == currentState.Moving)
         {
             agent.SetDestination(playerTrans.position);
+            //if raycast is lost, return to idle (lose focus)
             if(!theRay){
                 currentState = currentState.Idle;
             }

@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
             {
                 currentSpeed = targetSpeed;
             }
-        //agent.Move(targetDirection.normalized * (currentSpeed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+        //agent.Move(targetDirection.normalized*currentSpeed * Time.deltaTime);
         playerCC.Move(targetDirection.normalized * (currentSpeed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
 
     }

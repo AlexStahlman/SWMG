@@ -1073,7 +1073,7 @@ CharacterController:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   controller: {fileID: 141799613}
   rotationTime: 0.12
   walkSpeed: 3
-  accVal: 7.5
+  accVal: 1
   orientToMovement: 0
   agent: {fileID: 1344843076}
   camSpeed: 0.1
