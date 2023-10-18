@@ -30,22 +30,32 @@ public class EnemyController : MonoBehaviour
     #region State Machine
     void State()
     {
-    theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, UnityEngine.AI.NavMesh.AllAreas);
+        // this one \/ is a first try at it, but its here incase the agent.Raycast becomes stupid
+        //theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, NavMesh.AllAreas);
+        theRay = agent.Raycast(playerTrans.position, out hit);
+        Debug.DrawRay(hit.position, Vector3.up, Color.green);
         if (currentState == currentState.Idle)
         {
             //theRay is a boolean raycast that returns true if connected
-            Debug.DrawRay(transform.position, playerTrans.position-transform.position, theRay ? Color.red : Color.green);
-            if(theRay){
+            if(!theRay){
                 currentState = currentState.Moving;
             }
         }
         else if (currentState == currentState.Moving)
         {
+            
             agent.SetDestination(playerTrans.position);
-            //if raycast is lost, return to idle (lose focus)
-            if(!theRay){
+            //IF THE RAYCAST IS LOST, GOTO IDLE!!!
+            if (theRay)
+            {
                 currentState = currentState.Idle;
             }
+            /* Here is once you hit radius of satisfaction, you go KABOOOM and attack/implode
+            if(agent.nextPosition <= radiusOfSatisfaction)
+            {
+                currentState = currentState.Attack;
+            }
+            */
         }
         else if (currentState == currentState.Attack)
         {
