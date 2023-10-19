@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity;
     private float currentSpeed;
     private Vector3 lookDir;
+    public UnityEngine.AI.NavMeshAgent agent;
     [Header("Camera")]
     [SerializeField,Range(0,1)] private float camSpeed;
     void Start()
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     playerCC = GetComponent<CharacterController>();
     input= GetComponent<InputPasser>();
     cam= Camera.main;
+    agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
     #region Movement
     void Move(){
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
         targetSpeed=walkSpeed;
         Vector3 inputDirection = new Vector3(input.movement.x, 0.0f, input.movement.y).normalized;
         inputDirection=Quaternion.AngleAxis(-45,Vector3.up)*inputDirection;
+        
         if(!orientToMovement){
             
         }
@@ -69,7 +72,9 @@ public class PlayerController : MonoBehaviour
             {
                 currentSpeed = targetSpeed;
             }
-            playerCC.Move(targetDirection.normalized * (currentSpeed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+        //agent.Move(targetDirection.normalized*currentSpeed * Time.deltaTime);
+        playerCC.Move(targetDirection.normalized * (currentSpeed * Time.deltaTime) + new Vector3(0.0f, verticalVelocity, 0.0f) * Time.deltaTime);
+
     }
     void Gravity(){
         //will be added maybe sometime

@@ -12,6 +12,9 @@ TagManager:
   - Water
   - UI
   - Walls
+  - Enemy
+  - Clutter
+  - 
   - 
   - StencilLayerTest
   - Particles
