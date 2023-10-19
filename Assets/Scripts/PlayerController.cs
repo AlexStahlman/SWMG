@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField,Range(0,1)] private float camSpeed;
     void Start()
     {
-    lookMask=~LayerMask.GetMask("Player","Walls");
+    lookMask=~LayerMask.GetMask("Player","Walls","StencilLayerTest");
     playerInput = GetComponent<PlayerInput>();
     playerCC = GetComponent<CharacterController>();
     input= GetComponent<InputPasser>();
