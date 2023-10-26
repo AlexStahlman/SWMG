@@ -102,17 +102,23 @@ public class PlayerController : MonoBehaviour
         checkMovementState();
     }
     void checkMovementState() {
-        float orientation = transform.rotation.y;
-        Debug.Log(orientation);
-        bool wPressed = Input.GetKey(KeyCode.W);
-        bool aPressed = Input.GetKey(KeyCode.A);
-        bool sPressed = Input.GetKey(KeyCode.S);
-        bool dPressed = Input.GetKey(KeyCode.D);
+        //Collect information on characters local directional vectors.
+        Vector3 localFoward = transform.forward;
+        Vector3 localRight = transform.right;
+        Vector3 globalInputDirection = new Vector3(input.movement.x, 0.0f, input.movement.y).normalized;
+        Vector3 localInputDir=Quaternion.AngleAxis(-45,Vector3.up)*globalInputDirection;
+
+        //determine direction of movement based on vectors.
+        bool movingFoward = Vector3.Dot(localInputDir, localFoward) > 0;
+        bool movingLeft = Vector3.Dot(localInputDir, -localRight) > 0;
+        bool movingBackwards = Vector3.Dot(localInputDir, -localFoward) > 0;
+        bool movingRight = Vector3.Dot(localInputDir, localRight) > 0;
         
-        animation.SetBool("Moving_Up", wPressed ? true : false);
-        animation.SetBool("Moving_Down", sPressed ? true : false);
-        animation.SetBool("Moving_Left", aPressed ? true : false);
-        animation.SetBool("Moving_Right", dPressed ? true : false);
+        //set movement animation triggers.
+        animation.SetBool("Moving_Forwards", movingFoward ? true : false);
+        animation.SetBool("Moving_Left", movingLeft ? true : false);
+        animation.SetBool("Moving_Backwards", movingBackwards ? true : false);
+        animation.SetBool("Moving_Right", movingRight ? true : false);
     }
 
     #endregion
