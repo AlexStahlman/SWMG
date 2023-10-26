@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Transform controller;
     private Camera cam;
     private LayerMask lookMask;
+    private Animator animation;
     [Header("Movement Settings")]
     [SerializeField] private float rotationTime;
     [SerializeField] private float walkSpeed;
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
     lookMask=~LayerMask.GetMask("Player","Walls","StencilLayerTest");
+    Transform childObject = transform.Find("PlayerModel");
+    animation = childObject.GetComponent<Animator>();
     playerInput = GetComponent<PlayerInput>();
     playerCC = GetComponent<CharacterController>();
     input= GetComponent<InputPasser>();
@@ -95,6 +98,23 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(hit.point,Vector3.up*30,Color.green);
         }
     }
+    void animationStateCheck(){
+        checkMovementState();
+    }
+    void checkMovementState() {
+        float orientation = transform.rotation.y;
+        Debug.Log(orientation);
+        bool wPressed = Input.GetKey(KeyCode.W);
+        bool aPressed = Input.GetKey(KeyCode.A);
+        bool sPressed = Input.GetKey(KeyCode.S);
+        bool dPressed = Input.GetKey(KeyCode.D);
+        
+        animation.SetBool("Moving_Up", wPressed ? true : false);
+        animation.SetBool("Moving_Down", sPressed ? true : false);
+        animation.SetBool("Moving_Left", aPressed ? true : false);
+        animation.SetBool("Moving_Right", dPressed ? true : false);
+    }
+
     #endregion
     // Update is called once per frame
     void Update()
@@ -103,5 +123,6 @@ public class PlayerController : MonoBehaviour
         ControllerUpdate();
         CamUpdate();
         Move();
+        animationStateCheck();
     }
 }
