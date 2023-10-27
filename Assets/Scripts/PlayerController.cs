@@ -119,6 +119,17 @@ public class PlayerController : MonoBehaviour
         animation.SetBool("Moving_Left", movingLeft ? true : false);
         animation.SetBool("Moving_Backwards", movingBackwards ? true : false);
         animation.SetBool("Moving_Right", movingRight ? true : false);
+
+        if(movingFoward || movingBackwards || movingLeft || movingRight) {
+            animation.SetBool("Moving", true);
+        }
+        else {
+            animation.SetBool("Moving", false);
+        }
+
+        animation.SetBool("Pickup", Input.GetKey("f") ? true : false);
+        animation.SetBool("Primary_Attack", Input.GetKey(KeyCode.Mouse0) ? true : false);
+        animation.SetBool("Secondary_Attack", Input.GetKey(KeyCode.Mouse1) ? true : false);
     }
 
     #endregion
