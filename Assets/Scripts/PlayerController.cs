@@ -127,8 +127,8 @@ public class PlayerController : MonoBehaviour
             animation.SetBool("Moving", false);
         }
 
-        animation.SetBool("Pickup", Input.GetKey("f") ? true : false);
-        animation.SetBool("Primary_Attack", Input.GetKey(KeyCode.Mouse0) ? true : false);
+        animation.SetBool("Pickup", Input.GetKeyDown("f") ? true : false);
+        animation.SetBool("Primary_Attack", Input.GetKeyDown(KeyCode.Mouse0) ? true : false);
         animation.SetBool("Secondary_Attack", Input.GetKey(KeyCode.Mouse1) ? true : false);
     }
 
