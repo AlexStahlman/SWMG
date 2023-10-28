@@ -2033,10 +2033,9 @@ GameObject:
   - component: {fileID: 1228587505}
   - component: {fileID: 1228587504}
   - component: {fileID: 1228587503}
-  - component: {fileID: 1228587502}
   - component: {fileID: 1228587501}
-  - component: {fileID: 1228587510}
   - component: {fileID: 1228587511}
+  - component: {fileID: 1228587510}
   m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
@@ -2082,21 +2081,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1228587502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228587499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb2e3eb69a36a849bc53026de0ba09d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cutoutMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!114 &1228587503
 MonoBehaviour:
   m_ObjectHideFlags: 0
