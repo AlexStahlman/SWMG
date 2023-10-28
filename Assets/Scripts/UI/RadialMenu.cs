@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 public class RadialMenu : MonoBehaviour
 {
@@ -15,30 +16,41 @@ public class RadialMenu : MonoBehaviour
 
     public RadialMenuEntry SelectedEntry { get => selectedEntry; set => selectedEntry = value; }
 
+    [SerializeField] private GameObject scrollPrefab;
+    private UIManager parent;
+
     void Start()
     {
+        parent=GetComponentInParent<UIManager>();
         radialMenuGroup = GetComponent<CanvasGroup>();
         menuEntries = new List<RadialMenuEntry>();
-        this.gameObject.SetActive(false);
+        radialMenuGroup.interactable=false;
+        radialMenuGroup.blocksRaycasts=false;
+        radialMenuGroup.alpha=Convert.ToSingle(false);
     }
 
-    void AddEntry()
+    public void AddEntry(Spell spell, Material icon)
     {
         GameObject entry = Instantiate(menuEntryObject, transform);
         RadialMenuEntry menuEntry = entry.GetComponent<RadialMenuEntry>();
+        menuEntry.Icon.GetComponent<Image>().material=icon;
+        menuEntry.spellScript=spell;
         menuEntry.SetName();
         menuEntries.Add(menuEntry);
         RadialArrange();
+        
     }
-    void RemoveEntry()
+    public void RemoveEntry()
     {
-
+        GameObject scroll=Instantiate(scrollPrefab,spellManager.gameObject.transform.position,spellManager.gameObject.transform.rotation);
+        Pickup newPickup= scroll.GetComponent<Pickup>();
+        newPickup.pickup=selectedEntry.spellScript;
+        newPickup.ui=parent;
+        newPickup.Icon.material=selectedEntry.Icon.material;
+        menuEntries.Remove(selectedEntry);
+        Destroy(selectedEntry.gameObject);
         RadialArrange();
         //Instantiate SpellScroll prefab
-    }
-    void GetEntry()
-    {
-
     }
     public void RadialArrange()
     {
