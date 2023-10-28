@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float detectionRange;
     private Vector3 lookDir;
     public NavMeshAgent agent;
+    private Animator animation;
     private float radiusOfSatisfaction;
     private float targetRotation;
     [Header("Raycast Jungle")]
@@ -25,6 +26,9 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        Transform childObject = transform.Find("Skeleton");
+        animation = childObject.GetComponent<Animator>();
+        animation.SetBool("Idle", true);
         theRay = false;
     }
     #region State Machine
@@ -39,6 +43,9 @@ public class EnemyController : MonoBehaviour
             //theRay is a boolean raycast that returns true if connected
             if(!theRay){
                 currentState = currentState.Moving;
+                animation.SetBool("Idle", false);
+                animation.SetBool("Moving", true);
+                animation.SetBool("Attacking", false);
             }
         }
         else if (currentState == currentState.Moving)
@@ -49,6 +56,9 @@ public class EnemyController : MonoBehaviour
             if (theRay)
             {
                 currentState = currentState.Idle;
+                animation.SetBool("Idle", true);
+                animation.SetBool("Moving", false);
+                animation.SetBool("Attacking", false);
             }
             /* Here is once you hit radius of satisfaction, you go KABOOOM and attack/implode
             if(agent.nextPosition <= radiusOfSatisfaction)
@@ -60,6 +70,9 @@ public class EnemyController : MonoBehaviour
         else if (currentState == currentState.Attack)
         {
             //attack animation and boom pow damage
+            animation.SetBool("Idle", false);
+            animation.SetBool("Moving", false);
+            animation.SetBool("Attacking", true);
         }
     }
     void Gravity()

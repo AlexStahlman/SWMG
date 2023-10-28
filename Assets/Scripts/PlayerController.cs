@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Transform controller;
     private Camera cam;
     private LayerMask lookMask;
+    private Animator animation;
     [Header("Movement Settings")]
     [SerializeField] private float rotationTime;
     [SerializeField] private float walkSpeed;
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
     lookMask=~LayerMask.GetMask("Player","Walls","StencilLayerTest");
+    Transform childObject = transform.Find("PlayerModel");
+    animation = childObject.GetComponent<Animator>();
     playerInput = GetComponent<PlayerInput>();
     playerCC = GetComponent<CharacterController>();
     input= GetComponent<InputPasser>();
@@ -95,6 +98,40 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(hit.point,Vector3.up*30,Color.green);
         }
     }
+    void animationStateCheck(){
+        checkMovementState();
+    }
+    void checkMovementState() {
+        //Collect information on characters local directional vectors.
+        Vector3 localFoward = transform.forward;
+        Vector3 localRight = transform.right;
+        Vector3 globalInputDirection = new Vector3(input.movement.x, 0.0f, input.movement.y).normalized;
+        Vector3 localInputDir=Quaternion.AngleAxis(-45,Vector3.up)*globalInputDirection;
+
+        //determine direction of movement based on vectors.
+        bool movingFoward = Vector3.Dot(localInputDir, localFoward) > 0;
+        bool movingLeft = Vector3.Dot(localInputDir, -localRight) > 0;
+        bool movingBackwards = Vector3.Dot(localInputDir, -localFoward) > 0;
+        bool movingRight = Vector3.Dot(localInputDir, localRight) > 0;
+        
+        //set movement animation triggers.
+        animation.SetBool("Moving_Forwards", movingFoward ? true : false);
+        animation.SetBool("Moving_Left", movingLeft ? true : false);
+        animation.SetBool("Moving_Backwards", movingBackwards ? true : false);
+        animation.SetBool("Moving_Right", movingRight ? true : false);
+
+        if(movingFoward || movingBackwards || movingLeft || movingRight) {
+            animation.SetBool("Moving", true);
+        }
+        else {
+            animation.SetBool("Moving", false);
+        }
+
+        animation.SetBool("Pickup", Input.GetKey("f") ? true : false);
+        animation.SetBool("Primary_Attack", Input.GetKey(KeyCode.Mouse0) ? true : false);
+        animation.SetBool("Secondary_Attack", Input.GetKey(KeyCode.Mouse1) ? true : false);
+    }
+
     #endregion
     // Update is called once per frame
     void Update()
@@ -103,5 +140,6 @@ public class PlayerController : MonoBehaviour
         ControllerUpdate();
         CamUpdate();
         Move();
+        animationStateCheck();
     }
 }
