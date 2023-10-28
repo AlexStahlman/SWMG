@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3451392848652627539}
   - component: {fileID: -5454532896612358046}
   m_Layer: 9
-  m_Name: Firebolt
+  m_Name: Firebolt Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4940,5 +4940,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c307d42743f6ae428798686535ceb89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell: {fileID: 11400000, guid: 54e16c7530c41a24c977cc6877d65d6c, type: 2}
+  spell: {fileID: 11400000, guid: 25687cacf628db144a4e7b2d8986facd, type: 2}
   canCast: 1

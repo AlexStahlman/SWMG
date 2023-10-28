@@ -12,19 +12,23 @@ public class UIManager : MonoBehaviour
     [Header("Pickups")]
     public TextMeshProUGUI pickupText;
     public GameObject curPickup;
-    public MonoBehaviour curPickupScript;
+    public Pickup curPickupScript;
     void Start(){
         radialMenuScript=radialMenu.GetComponent<RadialMenu>();
         input.OnMenuOpenEvent+=ToggleMenu;
+        input.OnPickupActionEvent+=Pickup;
     }
     void ToggleMenu(bool status){
-        radialMenu.SetActive(status);
         radialMenuScript.radialMenuGroup.interactable=status;
         radialMenuScript.radialMenuGroup.blocksRaycasts=status;
         radialMenuScript.radialMenuGroup.alpha=Convert.ToSingle(status);
     }
     void Pickup(){
-        
+        if(curPickup){
+        curPickupScript=curPickup.GetComponent<Pickup>();
+        radialMenuScript.AddEntry(curPickupScript.pickup,curPickupScript.Icon.material);
+        Destroy(curPickup);
+        }
     }
 
 }

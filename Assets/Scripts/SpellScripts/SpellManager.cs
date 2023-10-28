@@ -41,7 +41,8 @@ public class SpellManager : MonoBehaviour
        }
     }
     void CastSpell(){
-    if(curSpell){
+    if(curSpell && curSpell.canCast==true){
+    curSpell.canCast=false;
     Instantiate(curSpell, castPoint.position, castPoint.rotation);
     }
     }
