@@ -60,12 +60,10 @@ public class EnemyController : MonoBehaviour
                 animation.SetBool("Moving", false);
                 animation.SetBool("Attacking", false);
             }
-            /* Here is once you hit radius of satisfaction, you go KABOOOM and attack/implode
-            if(agent.nextPosition <= radiusOfSatisfaction)
+            if(agent.isStopped)
             {
                 currentState = currentState.Attack;
             }
-            */
         }
         else if (currentState == currentState.Attack)
         {
@@ -73,6 +71,15 @@ public class EnemyController : MonoBehaviour
             animation.SetBool("Idle", false);
             animation.SetBool("Moving", false);
             animation.SetBool("Attacking", true);
+            //Get current state in animation, if attacking is still playing its true
+            if (animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+            {
+                return;
+            }
+            else //else = attack be done yarrr
+            {
+                currentState = currentState.Moving;
+            }
         }
     }
     void Gravity()
