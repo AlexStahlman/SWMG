@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class WizardEnemyController : MonoBehaviour
 {
+    // Start is called before the first frame update
     [Header("References")]
     [SerializeField] private Transform playerTrans;
 
@@ -12,16 +13,17 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float detectionRange;
     private Vector3 lookDir;
     public NavMeshAgent agent;
-    private new Animator animation;
+    private Animator animation;
     private float radiusOfSatisfaction;
     private float targetRotation;
     [Header("Raycast Jungle")]
     private NavMeshHit hit;
     private bool theRay;
     public Vector3 direction;
+    private EnemySpellCaster EnemyCast;
 
     [Header("Hot Steamy Variables")]
-    [SerializeField] public currentState currentState;
+    [SerializeField] public wizcurrentState wizcurrentState;
 
     void Start()
     {
@@ -38,47 +40,54 @@ public class EnemyController : MonoBehaviour
         //theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, NavMesh.AllAreas);
         theRay = agent.Raycast(playerTrans.position, out hit);
         Debug.DrawRay(hit.position, Vector3.up, Color.green);
-        if (currentState == currentState.Idle)
+        if (this.wizcurrentState == wizcurrentState.Idle)
+        if (this.wizcurrentState == wizcurrentState.Idle)
         {
             //theRay is a boolean raycast that returns true if connected
-            if(!theRay){
-                this.currentState = currentState.Moving;
+            if (!theRay)
+            {
+                this.wizcurrentState = wizcurrentState.Moving;
                 animation.SetBool("Idle", false);
                 animation.SetBool("Moving", true);
                 animation.SetBool("Attacking", false);
             }
         }
-        else if (this.currentState == currentState.Moving)
+        else if (wizcurrentState == wizcurrentState.Moving)
         {
-            
+
             agent.SetDestination(playerTrans.position);
             //IF THE RAYCAST IS LOST, GOTO IDLE!!!
             if (theRay)
             {
-                this.currentState = currentState.Idle;
+                this.wizcurrentState = wizcurrentState.Idle;
                 animation.SetBool("Idle", true);
                 animation.SetBool("Moving", false);
                 animation.SetBool("Attacking", false);
             }
-            if(agent.isStopped)
+            if (agent.isStopped)
             {
-                this.currentState = currentState.Attack;
+                this.wizcurrentState = wizcurrentState.Attack;
             }
         }
-        else if (this.currentState == currentState.Attack)
+        else if (this.wizcurrentState == wizcurrentState.Attack)
         {
             //attack animation and boom pow damage
             animation.SetBool("Idle", false);
             animation.SetBool("Moving", false);
             animation.SetBool("Attacking", true);
-            //Get current state in animation, if attacking is still playing its true
+                //Get current state in animation, if attacking is still playing its true
+
+            //cast spell !!:!!!!?!?!!11!!
+            EnemyCast.casting = true;
+
+
             if (animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
             {
                 return;
             }
             else //else = attack be done yarrr
             {
-                this.currentState = currentState.Moving;
+                this.wizcurrentState = wizcurrentState.Moving;
             }
         }
     }
@@ -93,7 +102,7 @@ public class EnemyController : MonoBehaviour
         State();
     }
 }
-public enum currentState
+public enum wizcurrentState
 {
     Idle,
     Moving,
