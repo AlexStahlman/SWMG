@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpellCaster : MonoBehaviour
+public class EnemySpellCaster : EnemyController
 {
+    [Header("Wizard Casting Variables")]
     [SerializeField] private float MaxMP;
     [SerializeField] private float curMP;
     [SerializeField] private float rechargeMP;
@@ -14,18 +15,16 @@ public class EnemySpellCaster : MonoBehaviour
     [SerializeField] private float baseCastDelay;
     private float castDelay;
     [SerializeField] private float castDelayTimer;
-
-    // Start is called before the first frame update
-    private InputPasser input;
-    void Start()
-    {
-        castDelay = baseCastDelay;
-        input = GetComponent<InputPasser>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        State();
+        if(currentState == currentState.Moving)
+        {
+            casting = true;
+            castDelay = baseCastDelay;
+        }
+
+        //casting stuff
         Debug.DrawRay(castPoint.position, castPoint.forward * 10, Color.blue);
         if (casting)
         {
@@ -48,3 +47,5 @@ public class EnemySpellCaster : MonoBehaviour
         }
     }
 }
+
+

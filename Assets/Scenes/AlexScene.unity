@@ -2003,8 +2003,7 @@ GameObject:
   - component: {fileID: 1375341191}
   - component: {fileID: 1375341190}
   - component: {fileID: 1375341189}
-  - component: {fileID: 1375341188}
-  - component: {fileID: 1375341187}
+  - component: {fileID: 1375341193}
   m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
@@ -2029,43 +2028,6 @@ Transform:
   - {fileID: 2133169865}
   m_Father: {fileID: 54486959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1375341187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375341185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01fce3f96c9169646bd4c43106535293, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxMP: 100
-  curMP: 100
-  rechargeMP: 100
-  castPoint: {fileID: 2133169865}
-  curSpell: {fileID: -5454532896612358046, guid: 7954d5fb4d36bab4d86e74cc6f85186e, type: 3}
-  casting: 0
-  baseCastDelay: 0.5
-  castDelayTimer: 0.25
---- !u!114 &1375341188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375341185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05de10b820b03dd4388a4a35e4334ae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTrans: {fileID: 1228587500}
-  detectionRange: 0
-  agent: {fileID: 1375341189}
-  direction: {x: 0, y: 0, z: 0}
-  wizcurrentState: 2
 --- !u!195 &1375341189
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2161,6 +2123,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375341185}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1375341193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375341185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fce3f96c9169646bd4c43106535293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTrans: {fileID: 1228587500}
+  detectionRange: 0
+  agent: {fileID: 1375341189}
+  direction: {x: 0, y: 0, z: 0}
+  currentState: 0
+  MaxMP: 100
+  curMP: 100
+  rechargeMP: 25
+  castPoint: {fileID: 2133169865}
+  curSpell: {fileID: -5454532896612358046, guid: 7954d5fb4d36bab4d86e74cc6f85186e, type: 3}
+  casting: 0
+  baseCastDelay: 0.5
+  castDelayTimer: 0.25
 --- !u!1 &1427406164
 GameObject:
   m_ObjectHideFlags: 0

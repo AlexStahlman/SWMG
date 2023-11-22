@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
     private bool theRay;
     public Vector3 direction;
 
-    [Header("Hot Steamy Variables")]
+    [Header("Temparary Testing Variables")]
     [SerializeField] public currentState currentState;
 
     void Start()
@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
         theRay = false;
     }
     #region State Machine
-    void State()
+    public void State()
     {
         // this one \/ is a first try at it, but its here incase the agent.Raycast becomes stupid
         //theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, NavMesh.AllAreas);
