@@ -26,16 +26,17 @@ public class EnemySpellCaster : EnemyController
 
         //casting stuff
         Debug.DrawRay(castPoint.position, castPoint.forward * 10, Color.blue);
-        if (casting)
+        if(castDelayTimer > 0)
+        {
+            casting=false;
+            castDelayTimer -= Time.deltaTime;
+        }
+        if (casting && castDelayTimer <= 0)
         {
             castDelayTimer = castDelay;
             CastSpell();
             castDelayTimer -= Time.deltaTime;
-            if (castDelayTimer <= 0)
-            {
-                casting = false;
-                castDelayTimer = 0;
-            }
+            curSpell.canCast = true;
         }
     }
     void CastSpell()
