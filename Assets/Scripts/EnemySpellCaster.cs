@@ -18,19 +18,22 @@ public class EnemySpellCaster : EnemyController
     void Update()
     {
         State();
+
+        //if wiz moving then cast spells to the player
         if(currentState == currentState.Moving)
         {
             casting = true;
             castDelay = baseCastDelay;
         }
 
-        //casting stuff
         Debug.DrawRay(castPoint.position, castPoint.forward * 10, Color.blue);
+        //after we set the timer we need it to tick down and make sure its false until it hits 0
         if(castDelayTimer > 0)
         {
             casting=false;
             castDelayTimer -= Time.deltaTime;
         }
+        //casting will be true by here if the timer is 0, then we cast the spell
         if (casting && castDelayTimer <= 0)
         {
             castDelayTimer = castDelay;
@@ -41,7 +44,7 @@ public class EnemySpellCaster : EnemyController
     }
     void CastSpell()
     {
-        if (casting && curSpell.canCast == true)
+        if (curSpell && curSpell.canCast == true)
         {
             curSpell.canCast = false;
             Instantiate(curSpell, castPoint.position, castPoint.rotation);
