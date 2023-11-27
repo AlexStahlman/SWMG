@@ -107,6 +107,16 @@ public class PlayerController : MonoBehaviour
         Vector3 localRight = transform.right;
         Vector3 globalInputDirection = new Vector3(input.movement.x, 0.0f, input.movement.y).normalized;
         Vector3 localInputDir=Quaternion.AngleAxis(-45,Vector3.up)*globalInputDirection;
+        Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+
+        if(moveDirection.magnitude > 1.0f){
+            moveDirection = moveDirection.normalized;
+        }
+        moveDirection = transform.InverseTransformDirection(moveDirection);
+
+        animation.SetFloat("x", moveDirection.x);
+        animation.SetFloat("y", moveDirection.z);
+
 
         //determine direction of movement based on vectors.
         bool movingFoward = Vector3.Dot(localInputDir, localFoward) > 0;
