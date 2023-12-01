@@ -60,12 +60,12 @@ public class EnemyController : MonoBehaviour
                 animation.SetBool("Moving", false);
                 animation.SetBool("Attacking", false);
             }
-            if(agent.isStopped)
-            {
-                this.currentState = currentState.Attack;
+            if(agent.position == agent.stoppingDistance){
+                agent.isStopped = true;
+                this.currentState = currentState.attack;
             }
         }
-        else if (this.currentState == currentState.Attack)
+        else if (this.currentState == currentState.Attack && agent.isStopped)
         {
             //attack animation and boom pow damage
             animation.SetBool("Idle", false);
@@ -79,6 +79,7 @@ public class EnemyController : MonoBehaviour
             else //else = attack be done yarrr
             {
                 this.currentState = currentState.Moving;
+                agent.isStopped = false;
             }
         }
     }
