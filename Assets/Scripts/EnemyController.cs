@@ -9,18 +9,22 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Transform playerTrans;
 
     [Header("Movement Settings")]
+    [SerializeField] private bool wizardEnemy;
     [SerializeField] private float detectionRange;
+    [SerializeField] float fleeRange = 2f;
+    [SerializeField] bool fleeing = false;
     private Vector3 lookDir;
     public NavMeshAgent agent;
     private new Animator animation;
-    private float radiusOfSatisfaction;
-    private float targetRotation;
+    private float distToTarget;
+
     [Header("Raycast Jungle")]
     private NavMeshHit hit;
     private bool theRay;
     public Vector3 direction;
 
     [Header("Temparary Testing Variables")]
+    //this is jsut to hardcode a state, it can stay but isnt needed
     [SerializeField] public currentState currentState;
 
     void Start()
@@ -30,6 +34,7 @@ public class EnemyController : MonoBehaviour
         animation = childObject.GetComponent<Animator>();
         animation.SetBool("Idle", true);
         theRay = false;
+        distToTarget = Mathf.Infinity;
     }
     #region State Machine
     public void State()
@@ -50,8 +55,15 @@ public class EnemyController : MonoBehaviour
         }
         else if (this.currentState == currentState.Moving)
         {
-            
-            agent.SetDestination(playerTrans.position);
+            distToTarget = Vector3.Distance(transform.position, playerTrans.position);
+            animation.SetBool("Idle", false);
+            animation.SetBool("Moving", true);
+            animation.SetBool("Attacking", false);
+            //fleeing is for the wizard, he shouldnt get too close
+            if (!fleeing)
+            {
+                agent.SetDestination(playerTrans.position);
+            }
             //IF THE RAYCAST IS LOST, GOTO IDLE!!!
             if (theRay)
             {
@@ -60,9 +72,35 @@ public class EnemyController : MonoBehaviour
                 animation.SetBool("Moving", false);
                 animation.SetBool("Attacking", false);
             }
-            if(agent.position == agent.stoppingDistance){
-                agent.isStopped = true;
-                this.currentState = currentState.attack;
+
+            if (wizardEnemy)
+            {
+                //if the distance from current wizard position to the target is less than a certain circle
+                if (distToTarget<= fleeRange)
+                {
+                    Vector3 toTarget = playerTrans.position - transform.position;
+                    if (Vector3.Distance(playerTrans.position, transform.position) < fleeRange)
+                    {
+                        //making a point oposite current location/destination
+                        Vector3 targetPosition = toTarget.normalized * -fleeRange;
+                        agent.SetDestination(targetPosition);
+                        fleeing = true;
+                    }
+                }
+                //this is so we arent too far away
+                if(distToTarget > 15f)
+                {
+                    fleeing = false;
+                }
+            }
+            
+            else
+            {
+                if (distToTarget < 2.5f)
+                {
+                    agent.isStopped = true;
+                    this.currentState = currentState.Attack;
+                }
             }
         }
         else if (this.currentState == currentState.Attack && agent.isStopped)
