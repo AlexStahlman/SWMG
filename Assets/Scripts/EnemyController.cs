@@ -48,17 +48,17 @@ public class EnemyController : MonoBehaviour
             //theRay is a boolean raycast that returns true if connected
             if(!theRay){
                 this.currentState = currentState.Moving;
-                animation.SetBool("Idle", false);
-                animation.SetBool("Moving", true);
-                animation.SetBool("Attacking", false);
             }
         }
         else if (this.currentState == currentState.Moving)
         {
             distToTarget = Vector3.Distance(transform.position, playerTrans.position);
-            animation.SetBool("Idle", false);
-            animation.SetBool("Moving", true);
-            animation.SetBool("Attacking", false);
+            if (!animation.GetCurrentAnimatorStateInfo(0).IsName("Moving") && !animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+            {
+                animation.SetBool("Idle", false);
+                animation.SetBool("Moving", true);
+                animation.SetBool("Attacking", false);
+            }
             //fleeing is for the wizard, he shouldnt get too close
             if (!fleeing)
             {
