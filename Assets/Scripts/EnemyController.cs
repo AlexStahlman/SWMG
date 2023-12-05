@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float detectionRange;
     [SerializeField] float fleeRange = 2f;
     [SerializeField] bool fleeing = false;
-    private Vector3 lookDir;
     public NavMeshAgent agent;
     private new Animator animation;
     private float distToTarget;
@@ -109,16 +108,13 @@ public class EnemyController : MonoBehaviour
             animation.SetBool("Idle", false);
             animation.SetBool("Moving", false);
             animation.SetBool("Attacking", true);
-            //Get current state in animation, if attacking is still playing its true
-            if (animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
-            {
-                return;
-            }
-            else //else = attack be done yarrr
+            //Get current state in animation, if attacking is still playing its true, so the ! is if it isnt going
+            if (!animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
             {
                 this.currentState = currentState.Moving;
                 agent.isStopped = false;
             }
+            
         }
     }
     void Gravity()
