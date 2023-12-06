@@ -22,7 +22,13 @@ public class EnemyController : MonoBehaviour
 
     [Header("Hot Steamy Variables")]
     [SerializeField] public currentState currentState;
-
+    [Header("Health/Mana")]
+    [SerializeField] private float MaxMP;
+    [SerializeField] private float curMP;
+    [SerializeField] private float MPrecharge;
+    [SerializeField] private float MaxHealth;
+    [SerializeField] public float curHealth;
+    [SerializeField] private float HPrecharge;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -91,6 +97,15 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         State();
+        UpdateHPMP();
+    }
+    public void UpdateHPMP(){
+        if(curHealth<MaxHealth){
+            curHealth=Mathf.Clamp(curHealth+HPrecharge*Time.deltaTime,0,MaxHealth);
+        }
+        if(curMP<MaxMP){
+            curMP=Mathf.Clamp(curMP+MPrecharge*Time.deltaTime,0,MaxMP);
+        }
     }
 }
 public enum currentState

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b11bee2fc4d83c141adb96ac6de7879f, type: 3}
   m_Name: Firebolt
   m_EditorClassIdentifier: 
-  mpCost: 5
+  mpCost: 40
   lifetime: 10
   baseCooldown: 3
   cooldown: 3
   name: Firebolt
-  damage: 0
+  damage: 34
   deferStoppingToParticle: 1
   destroyOnCollision: 1
   speed: 15
