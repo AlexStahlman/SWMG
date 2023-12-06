@@ -2,12 +2,15 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject radialMenu;
     private RadialMenu radialMenuScript;
     [SerializeField] private InputPasser input;
+    public Image HealthBar;
+    public Image ManaBar;
 
     [Header("Pickups")]
     public TextMeshProUGUI pickupText;

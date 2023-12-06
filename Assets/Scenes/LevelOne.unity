@@ -2357,6 +2357,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radialMenu: {fileID: 1428915116}
   input: {fileID: 1228587503}
+  HealthBar: {fileID: 0}
+  ManaBar: {fileID: 0}
   pickupText: {fileID: 1919889649}
   curPickup: {fileID: 0}
   curPickupScript: {fileID: 0}
@@ -2435,7 +2437,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 276633723}
   - {fileID: 1428915119}
   - {fileID: 1919889651}
   m_Father: {fileID: 0}
@@ -2466,7 +2467,7 @@ GameObject:
   - component: {fileID: 1228587510}
   m_Layer: 3
   m_Name: Capsule
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2686,8 +2687,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98bf8d045bad4c4e96ed819e9880417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ui: {fileID: 1224111621}
   MaxMP: 100
   curMP: 100
+  MPrecharge: 10
+  MaxHealth: 100
+  curHealth: 100
+  HPrecharge: 2
   rechargeMP: 5
   castPoint: {fileID: 65079104}
   curSpell: {fileID: -5454532896612358046, guid: 7954d5fb4d36bab4d86e74cc6f85186e, type: 3}
@@ -2830,7 +2836,7 @@ GameObject:
   - component: {fileID: 1255621868}
   m_Layer: 7
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2891,6 +2897,12 @@ MonoBehaviour:
   agent: {fileID: 1255621868}
   direction: {x: 0, y: 0, z: 0}
   currentState: 0
+  MaxMP: 0
+  curMP: 0
+  MPrecharge: 0
+  MaxHealth: 0
+  curHealth: 0
+  HPrecharge: 0
 --- !u!136 &1255621870
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4993,7 +5005,7 @@ GameObject:
   - component: {fileID: 2117635390}
   m_Layer: 7
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5054,6 +5066,12 @@ MonoBehaviour:
   agent: {fileID: 2117635390}
   direction: {x: 0, y: 0, z: 0}
   currentState: 0
+  MaxMP: 0
+  curMP: 0
+  MPrecharge: 0
+  MaxHealth: 0
+  curHealth: 0
+  HPrecharge: 0
 --- !u!136 &2117635392
 CapsuleCollider:
   m_ObjectHideFlags: 0
