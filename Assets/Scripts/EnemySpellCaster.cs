@@ -17,10 +17,11 @@ public class EnemySpellCaster : EnemyController
     [SerializeField] private float castDelayTimer;
     void Update()
     {
+        
         State();
 
         //if wiz moving then cast spells to the player
-        if(currentState == currentState.Moving)
+        if(currentState == currentState.Moving && !fleeing)
         {
             casting = true;
             castDelay = baseCastDelay;

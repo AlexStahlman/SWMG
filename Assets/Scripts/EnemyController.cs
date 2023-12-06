@@ -12,10 +12,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private bool wizardEnemy;
     [SerializeField] private float detectionRange;
     [SerializeField] float fleeRange = 2f;
-    [SerializeField] bool fleeing = false;
+    [SerializeField] public bool fleeing = false;
     public NavMeshAgent agent;
     private new Animator animation;
     private float distToTarget;
+    private Vector3 targetPosition;
 
     [Header("Raycast Jungle")]
     private NavMeshHit hit;
@@ -52,7 +53,8 @@ public class EnemyController : MonoBehaviour
         else if (this.currentState == currentState.Moving)
         {
             distToTarget = Vector3.Distance(transform.position, playerTrans.position);
-            if (!animation.GetCurrentAnimatorStateInfo(0).IsName("Moving") && !animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+            //if (!animation.GetCurrentAnimatorStateInfo(0).IsName("Moving") && !animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+            if (!animation.GetBool("Moving") && !animation.GetBool("Attacking"))
             {
                 animation.SetBool("Idle", false);
                 animation.SetBool("Moving", true);
@@ -75,24 +77,26 @@ public class EnemyController : MonoBehaviour
             if (wizardEnemy)
             {
                 //if the distance from current wizard position to the target is less than a certain circle
-                if (distToTarget<= fleeRange)
+                if (distToTarget <= fleeRange)
                 {
                     Vector3 toTarget = playerTrans.position - transform.position;
                     if (Vector3.Distance(playerTrans.position, transform.position) < fleeRange)
                     {
-                        //making a point oposite current location/destination
-                        Vector3 targetPosition = toTarget.normalized * -fleeRange;
+                        //making a point opposite current location/destination
+                        targetPosition = toTarget.normalized * -fleeRange;
                         agent.SetDestination(targetPosition);
+                        
                         fleeing = true;
                     }
                 }
                 //this is so we arent too far away
-                if(distToTarget > 15f)
+                if(distToTarget > 15f || transform.position == targetPosition)
                 {
                     fleeing = false;
                 }
             }
             
+            //else is melee dude
             else
             {
                 if (distToTarget < 2.5f)
@@ -109,7 +113,7 @@ public class EnemyController : MonoBehaviour
             animation.SetBool("Moving", false);
             animation.SetBool("Attacking", true);
             //Get current state in animation, if attacking is still playing its true, so the ! is if it isnt going
-            if (!animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+            if (!animation.GetBool("Attacking"))
             {
                 this.currentState = currentState.Moving;
                 agent.isStopped = false;
