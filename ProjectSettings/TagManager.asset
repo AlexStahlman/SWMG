@@ -16,7 +16,7 @@ TagManager:
   - Walls
   - Enemy
   - Clutter
-  - 
+  - End
   - 
   - StencilLayerTest
   - Particles

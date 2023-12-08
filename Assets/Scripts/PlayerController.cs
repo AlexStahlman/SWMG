@@ -152,4 +152,12 @@ public class PlayerController : MonoBehaviour
         Move();
         animationStateCheck();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "End")
+        {
+            //chance UI to end screen
+        }
+    }
 }
