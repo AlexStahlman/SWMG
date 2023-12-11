@@ -49,6 +49,7 @@ public class SpellManager : MonoBehaviour
     if(curSpell && curSpell.canCast==true && curMP>curSpell.spell.mpCost){
     curSpell.canCast=false;
     Instantiate(curSpell, castPoint.position, castPoint.rotation);
+    AudioManager.instance.play_FireCast();
     curMP-=curSpell.spell.mpCost;
     }
     }
