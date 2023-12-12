@@ -35,7 +35,8 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         Transform childObject = transform.Find("Skeleton");
         animation = childObject.GetComponent<Animator>();
-        animation.SetBool("Idle", true);
+        // animation.SetBool("Idle", true);
+        animation.SetTrigger("Idle");
         theRay = false;
         distToTarget = Mathf.Infinity;
     }
@@ -57,12 +58,18 @@ public class EnemyController : MonoBehaviour
         {
             distToTarget = Vector3.Distance(transform.position, playerTrans.position);
             //if (!animation.GetCurrentAnimatorStateInfo(0).IsName("Moving") && !animation.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
-            if (!animation.GetBool("Moving") && !animation.GetBool("Attacking"))
-            {
-                animation.SetBool("Idle", false);
-                animation.SetBool("Moving", true);
-                animation.SetBool("Attacking", false);
-            }
+            
+            animation.SetTrigger("Moving");
+            animation.ResetTrigger("Attacking");
+            animation.ResetTrigger("Idle");
+
+            // if (!animation.GetBool("Moving") && !animation.GetBool("Attacking"))
+            // {
+            //     animation.SetBool("Idle", false);
+            //     animation.SetBool("Moving", true);
+            //     animation.SetBool("Attacking", false);
+            // }
+
             //fleeing is for the wizard, he shouldnt get too close
             if (!fleeing)
             {
@@ -72,9 +79,9 @@ public class EnemyController : MonoBehaviour
             if (theRay)
             {
                 this.currentState = currentState.Idle;
-                animation.SetBool("Idle", true);
-                animation.SetBool("Moving", false);
-                animation.SetBool("Attacking", false);
+                animation.SetTrigger("Idle");
+                animation.ResetTrigger("Moving");
+                animation.ResetTrigger("Attacking");
             }
 
             if (wizardEnemy)
@@ -111,12 +118,14 @@ public class EnemyController : MonoBehaviour
         }
         else if (this.currentState == currentState.Attack && agent.isStopped)
         {
+            distToTarget = Vector3.Distance(transform.position, playerTrans.position);
             //attack animation and boom pow damage
-            animation.SetBool("Idle", false);
-            animation.SetBool("Moving", false);
-            animation.SetBool("Attacking", true);
-            //Get current state in animation, if attacking is still playing its true, so the ! is if it isnt going
-            if (!animation.GetBool("Attacking"))
+            animation.ResetTrigger("Idle");
+            animation.ResetTrigger("Moving");
+            animation.SetTrigger("Attacking"); 
+
+            //if distance between player and enemy increases, start moving.
+            if (distToTarget > 2.5f)
             {
                 this.currentState = currentState.Moving;
                 agent.isStopped = false;
