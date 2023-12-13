@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Tag
   - End
+  - Spell
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Enemy
   - Clutter
   - End
-  - 
+  - Spell
   - StencilLayerTest
   - Particles
   - 
