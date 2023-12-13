@@ -57,7 +57,6 @@ public class SpellManager : MonoBehaviour
         if(curHealth<=0){
             //Cevion put the death animation time in place of 0
             ui.WinLoseUI(false);
-            Destroy(gameObject,0);
             return;
         }
         if(curHealth<MaxHealth){

@@ -37,9 +37,7 @@ public class UIManager : MonoBehaviour
         }
     }
     public void WinLoseUI(bool winlose){
-        PlayerInput playerInput=gameObject.GetComponent<PlayerInput>();
-        playerInput.DeactivateInput();
-        EndScreen.enabled=true;
+        EndScreen.gameObject.SetActive(true);
         if(winlose==true){
             endText.text="Victory!";
             endText.color=Color.green;
@@ -47,6 +45,8 @@ public class UIManager : MonoBehaviour
             endText.text="Defeat...";
             endText.color=Color.red;
         }
+        PlayerInput playerInput=GameObject.Find("CharacterController/Capsule").GetComponent<PlayerInput>();
+        playerInput.DeactivateInput();
     }
 
 }
