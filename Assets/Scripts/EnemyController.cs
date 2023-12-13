@@ -137,7 +137,8 @@ public class EnemyController : MonoBehaviour
     }
     public void UpdateHP(){
         if(curHealth<=0){
-            //Destroy enemy
+        
+            Destroy(gameObject, 0);
         }
         if(curHealth<MaxHealth){
             curHealth=Mathf.Clamp(curHealth+HPrecharge*Time.deltaTime,0,MaxHealth);

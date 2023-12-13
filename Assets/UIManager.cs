@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Image EndScreen;
+    [SerializeField] private TextMeshProUGUI endText;
     [SerializeField] private GameObject radialMenu;
     private RadialMenu radialMenuScript;
     [SerializeField] private InputPasser input;
@@ -31,6 +34,18 @@ public class UIManager : MonoBehaviour
         curPickupScript=curPickup.GetComponent<Pickup>();
         radialMenuScript.AddEntry(curPickupScript.pickup,curPickupScript.Icon.material);
         Destroy(curPickup);
+        }
+    }
+    public void WinLoseUI(bool winlose){
+        PlayerInput playerInput=gameObject.GetComponent<PlayerInput>();
+        playerInput.DeactivateInput();
+        EndScreen.enabled=true;
+        if(winlose==true){
+            endText.text="Victory!";
+            endText.color=Color.green;
+        }else{
+            endText.text="Defeat...";
+            endText.color=Color.red;
         }
     }
 

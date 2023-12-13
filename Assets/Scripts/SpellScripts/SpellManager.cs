@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SpellManager : MonoBehaviour
 {   
     [SerializeField] private UIManager ui;
@@ -26,6 +25,8 @@ public class SpellManager : MonoBehaviour
     {
         castDelay=baseCastDelay;
         input= GetComponent<InputPasser>();
+        curHealth=MaxHealth;
+        curMP=MaxMP;
     }
 
     // Update is called once per frame
@@ -53,6 +54,12 @@ public class SpellManager : MonoBehaviour
     }
     }
     public void UpdateHPMP(){
+        if(curHealth<=0){
+            //Cevion put the death animation time in place of 0
+            ui.WinLoseUI(false);
+            Destroy(gameObject,0);
+            return;
+        }
         if(curHealth<MaxHealth){
             curHealth=Mathf.Clamp(curHealth+HPrecharge*Time.deltaTime,0,MaxHealth);
         }
