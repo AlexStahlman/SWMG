@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private UIManager ui;
     private CharacterController playerCC;
     private PlayerInput playerInput;
     private InputPasser input;
@@ -153,10 +154,11 @@ public class PlayerController : MonoBehaviour
         animationStateCheck();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag == "End")
+        if(collision.tag == "End")
         {
+            ui.WinLoseUI(true);
             //chance UI to end screen
         }
     }
