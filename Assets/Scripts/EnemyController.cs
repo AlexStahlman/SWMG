@@ -26,10 +26,7 @@ public class EnemyController : MonoBehaviour
     [Header("Temparary Testing Variables")]
     //this is jsut to hardcode a state, it can stay but isnt needed
     [SerializeField] public currentState currentState;
-    [Header("Health/Mana")]
-    [SerializeField] private float MaxMP;
-    [SerializeField] private float curMP;
-    [SerializeField] private float MPrecharge;
+    [Header("Health")]
     [SerializeField] private float MaxHealth;
     [SerializeField] public float curHealth;
     [SerializeField] private float HPrecharge;
@@ -136,14 +133,14 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         State();
-        UpdateHPMP();
+        UpdateHP();
     }
-    public void UpdateHPMP(){
+    public void UpdateHP(){
+        if(curHealth<=0){
+            //Destroy enemy
+        }
         if(curHealth<MaxHealth){
             curHealth=Mathf.Clamp(curHealth+HPrecharge*Time.deltaTime,0,MaxHealth);
-        }
-        if(curMP<MaxMP){
-            curMP=Mathf.Clamp(curMP+MPrecharge*Time.deltaTime,0,MaxMP);
         }
     }
 }

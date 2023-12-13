@@ -17,7 +17,7 @@ public class EnemySpellCaster : EnemyController
     [SerializeField] private float castDelayTimer;
     void Update()
     {
-        
+        UpdateMP();
         State();
 
         //if wiz moving then cast spells to the player
@@ -49,6 +49,11 @@ public class EnemySpellCaster : EnemyController
         {
             curSpell.canCast = false;
             Instantiate(curSpell, castPoint.position, castPoint.rotation);
+        }
+    }
+    public void UpdateMP(){
+        if(curMP<MaxMP){
+            curMP=Mathf.Clamp(curMP+rechargeMP*Time.deltaTime,0,MaxMP);
         }
     }
 }
