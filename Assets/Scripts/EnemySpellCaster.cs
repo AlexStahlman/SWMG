@@ -17,6 +17,7 @@ public class EnemySpellCaster : EnemyController
     [SerializeField] private float castDelayTimer;
     void Update()
     {
+        UpdateHP();
         UpdateMP();
         State();
 

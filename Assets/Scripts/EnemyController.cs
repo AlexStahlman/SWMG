@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerTrans;
-
+    private SpellManager playerManager;
     [Header("Movement Settings")]
     [SerializeField] private bool wizardEnemy;
     [SerializeField] private float detectionRange;
@@ -27,11 +27,14 @@ public class EnemyController : MonoBehaviour
     //this is jsut to hardcode a state, it can stay but isnt needed
     [SerializeField] public currentState currentState;
     [Header("Health")]
+    [SerializeField] private float meleeDamage;
     [SerializeField] private float MaxHealth;
     [SerializeField] public float curHealth;
     [SerializeField] private float HPrecharge;
     void Start()
     {
+        playerManager=playerTrans.gameObject.GetComponent<SpellManager>();
+        print(playerManager);
         agent = GetComponent<NavMeshAgent>();
         Transform childObject = transform.Find("Skeleton");
         animation = childObject.GetComponent<Animator>();
@@ -45,7 +48,9 @@ public class EnemyController : MonoBehaviour
     {
         // this one \/ is a first try at it, but its here incase the agent.Raycast becomes stupid
         //theRay = NavMesh.Raycast(transform.position, playerTrans.position, out hit, NavMesh.AllAreas);
+        if(playerTrans){
         theRay = agent.Raycast(playerTrans.position, out hit);
+        }
         Debug.DrawRay(hit.position, Vector3.up, Color.green);
         if (currentState == currentState.Idle)
         {
@@ -141,15 +146,23 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerTrans){ 
         State();
+        }
         UpdateHP();
     }
     public void UpdateHP(){
         if(curHealth<=0){
-            //Destroy enemy
+        
+            Destroy(gameObject, 5);
         }
         if(curHealth<MaxHealth){
             curHealth=Mathf.Clamp(curHealth+HPrecharge*Time.deltaTime,0,MaxHealth);
+        }
+    }
+    public void AttackHit(){
+        if((playerTrans.position-transform.position).magnitude<2.5f){
+        playerManager.curHealth-=meleeDamage;    
         }
     }
 }

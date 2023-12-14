@@ -314,6 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2468889828458600031}
   - component: {fileID: 1116371902028168016}
+  - component: {fileID: -4142084092535271312}
   m_Layer: 0
   m_Name: mini simple skeleton demo
   m_TagString: Untagged
@@ -362,6 +363,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4142084092535271312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696834749189059949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65144a5388682142a035c1a4dcfd382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1818926580354158373
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,11 @@ public class Spell : MonoBehaviour
     }
     public void OnParticleCollision(GameObject other){
         if(other.tag=="Enemy"){
-            other.GetComponent<EnemyController>().curHealth-=spell.damage;
+            other.GetComponent<EnemyController>().curHealth-=50;
+            if (other.GetComponent<EnemyController>().curHealth <= 0)
+            {
+                Destroy(other);
+            }
         }
         if(other.tag=="Player"){
             other.GetComponent<SpellManager>().curHealth-=spell.damage;
