@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class InputPasser : MonoBehaviour
 {   
     public Vector2 movement;
@@ -34,6 +35,9 @@ public class InputPasser : MonoBehaviour
         if(OnPickupActionEvent!=null){
             OnPickupActionEvent();
         }
+    }
+    public void OnRestartBtn(InputValue restart){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
     
