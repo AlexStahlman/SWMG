@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public bool fleeing = false;
     public NavMeshAgent agent;
     private new Animator animation;
-    private float distToTarget;
+    public static float distToTarget;
     private Vector3 targetPosition;
 
     [Header("Raycast Jungle")]
