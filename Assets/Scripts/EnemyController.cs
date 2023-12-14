@@ -100,13 +100,14 @@ public class EnemyController : MonoBehaviour
                         //making a point opposite current location/destination
                         targetPosition = toTarget.normalized * -fleeRange;
                         agent.SetDestination(targetPosition);
-                        
+                        agent.speed = 3;
                         fleeing = true;
                     }
                 }
                 //this is so we arent too far away
                 if(distToTarget > 15f || transform.position == targetPosition)
                 {
+                    agent.speed = 1;
                     fleeing = false;
                 }
             }

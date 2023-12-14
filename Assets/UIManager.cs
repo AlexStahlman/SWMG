@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     public void WinLoseUI(bool winlose){
         EndScreen.gameObject.SetActive(true);
         if(winlose==true){
-            endText.text="Victory!";
+            endText.text="Victory!\n\nPress 'R' to restart!";
             endText.color=Color.green;
         }else{
             endText.text="Defeat...";
