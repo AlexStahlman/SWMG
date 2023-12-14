@@ -69,7 +69,7 @@ public class AudioManager : MonoBehaviour
         int randomNum = random.Next(0,6);
 
         audioSource.clip = SFX_Punches[randomNum];
-        audioSource.volume = .5f;
+        audioSource.volume = .1f;
         audioSource.Play();
         float clipLength = audioSource.clip.length;
         Destroy(audioSource.gameObject, clipLength);

@@ -58,9 +58,9 @@ ModelImporter:
       curves: []
       events:
       - time: 0.64522415
-        functionName: PlaySkeletonSwingSFX
+        functionName: playSkeletonSwingSFX
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 2561b72095e8ed341998b69f34b3af95, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: e65144a5388682142a035c1a4dcfd382, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
