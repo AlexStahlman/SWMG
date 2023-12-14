@@ -5405,6 +5405,19 @@ MonoBehaviour:
   OST_Object: {fileID: 9178306334578580794, guid: 7fd2f8ccb05ac3646b295e23844916f2, type: 3}
   OST_Soundtrack: {fileID: 8300000, guid: 3f698e30782600440bdce06335ccc886, type: 3}
   SFX_FireCast: {fileID: 8300000, guid: 44e66646754ec174a8a201c8eab225b8, type: 3}
+  SFX_EnemySpellCast: {fileID: 0}
+  SFX_Punches:
+  - {fileID: 8300000, guid: 77c3b20cd6f9b514f8ed3ba3429158d0, type: 3}
+  - {fileID: 8300000, guid: 023bada5a3eb83a48bc0d1f9859beab5, type: 3}
+  - {fileID: 8300000, guid: d7bb10be7458e974dbdb800b5d3eee37, type: 3}
+  - {fileID: 8300000, guid: 79fb28be7a8728d4d8c90635ac05d363, type: 3}
+  - {fileID: 8300000, guid: 59b7a2972dc9da24c931ff262c5ba258, type: 3}
+  SFX_Swishes:
+  - {fileID: 8300000, guid: a71526912dd848940a47ecf10352c76c, type: 3}
+  - {fileID: 8300000, guid: c6e48b10825502b48a02df8c923ee048, type: 3}
+  - {fileID: 8300000, guid: 7c9b207f0e4448640ad02d62ff4916ff, type: 3}
+  - {fileID: 8300000, guid: 70e974034c6855a478518cc9bb571868, type: 3}
+  - {fileID: 8300000, guid: e28807fb5c0148c4cbcd212620616391, type: 3}
 --- !u!4 &957274827
 Transform:
   m_ObjectHideFlags: 0

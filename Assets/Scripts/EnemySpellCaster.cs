@@ -49,6 +49,7 @@ public class EnemySpellCaster : EnemyController
         if (curSpell && curSpell.canCast == true)
         {
             curSpell.canCast = false;
+            AudioManager.instance.play_EnemySpellCast();
             Instantiate(curSpell, castPoint.position, castPoint.rotation);
         }
     }
